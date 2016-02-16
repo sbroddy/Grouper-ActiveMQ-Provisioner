@@ -374,7 +374,7 @@ sub getMemberDnForUnresolvable {
 	my ( $self, $uid ) = @_;
 	$log->debug("Calling CMU::LDAP::389::getMemberDnForUnresolvable(self, $uid)");
 
-	my $dn =  $self->{_memberprefix} . $uid . "," . "OU=AndrewPerson," . $self->{_peoplebase};
+	my $dn =  $self->{_memberprefix} . $uid . "," . $self->{_peoplebase};
 
 	$log->debug( "uid " . $uid . " converted to DN " . $dn );
 	return $dn;
@@ -385,7 +385,7 @@ sub constructMemberDnFromUid {
 	my ( $self, $uid ) = @_;
 	$log->debug("Calling CMU::LDAP::389::constructMemberDnFromUid(self, $uid)");
 
-	my $memberdn = join( "=", "uid", $uid . ",ou=AndrewPerson,dc=andrew,dc=cmu,dc=edu");
+	my $memberdn = join( "=", "uid", $uid . $self->{_peoplebase} );
 
 	$log->debug( "uid " . $uid . " converted to DN " . $memberdn );
 	return $memberdn;
