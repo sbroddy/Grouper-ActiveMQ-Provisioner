@@ -385,7 +385,7 @@ sub constructMemberDnFromUid {
 	my ( $self, $uid ) = @_;
 	$log->debug("Calling CMU::LDAP::389::constructMemberDnFromUid(self, $uid)");
 
-	my $memberdn = join( "=", "uid", $uid . $self->{_peoplebase} );
+	my $memberdn = join( "=", "uid", $uid . "," . $self->{_peoplebase} );
 
 	$log->debug( "uid " . $uid . " converted to DN " . $memberdn );
 	return $memberdn;
