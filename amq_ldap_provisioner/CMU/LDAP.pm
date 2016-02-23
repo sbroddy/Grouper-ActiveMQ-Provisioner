@@ -149,6 +149,29 @@ sub getMemberDn {
 			);
 
 			if ( $result->count < 1 ) {
+				# AddPersonObjectIfMissingTemplate is an array suitable for use by Net::LDAP
+				# here we create context for ldap_add by setting DN accordingly, adding UID and SN=UID if addPersonObjectIfMissingAddSN is defined
+				if ( defined( $self->{_addPersonObjectIfMissingTemplate}) ) {
+					my $newDN = $self->{_memberprefix}."=$memberuid,".$self->{_peoplebase};
+					my $newEntry = Net::LDAP::Entry->new($newDN);
+					$newEntry->add($self->{_addPersonIfMissingTemplate});
+					$newEntry->add('uid' => [ $memberuid ]);
+					$newEntry->add('sn' => [ $memberuid ]) if defined( $self->{_addPersonObjectIfMissingAddSN} );
+					my $newResult = $self->ldapUpdate( $newEntry ); # add the new person object
+					if ($newResult->code) {
+						$log->error( "CMU::LDAP::getMemberDN addPersonObject failed: "
+							. ldap_error_name($newResult->code)." / "
+							. ldap_error_desc( $newResult->code )
+							. ", ldif: ". $newEntry->ldif() );
+						return;
+					}
+					$log->info ( "CMU::LDAP::getMemberDN addPersonObject success: uid = ". $memberuid );
+					# make another call to this routine to complete what we tried to do
+					return $self->getMemberDN( $memberuid );
+					# return newDN;  
+					# The above return should work - if not, consider returning the formed DN as here.
+				}
+				# otherwise - log and continue 
 				$log->info(
 					"LDAP search didn't return result for uid " . $memberuid );
 				return;
