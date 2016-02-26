@@ -151,12 +151,14 @@ sub getMemberDn {
 			if ( $result->count < 1 ) {
 				# AddPersonObjectIfMissingTemplate is an array suitable for use by Net::LDAP
 				# here we create context for ldap_add by setting DN accordingly, adding UID and SN=UID if addPersonObjectIfMissingAddSN is defined
-				if ( defined( $self->{_addPersonObjectIfMissingTemplate}) ) {
-					my $newDN = $self->{_memberprefix}."=$memberuid,".$self->{_peoplebase};
+				if ( defined( $self->{_addPersonObjectIfMissing}) ) {
+					my $newDN = $self->{_memberprefix}."$memberuid,".$self->{_peoplebase};
 					my $newEntry = Net::LDAP::Entry->new($newDN);
-					$newEntry->add($self->{_addPersonIfMissingTemplate});
+					$newEntry->add('objectClass' => [ 'top'       ]);
+					$newEntry->add('objectClass' => [ 'account'   ]);
+					$newEntry->add('objectClass' => [ 'eduPerson' ]);
+					$newEntry->add('objectClass' => [ 'eduMember' ]);
 					$newEntry->add('uid' => [ $memberuid ]);
-					$newEntry->add('sn' => [ $memberuid ]) if defined( $self->{_addPersonObjectIfMissingAddSN} );
 					my $newResult = $self->ldapUpdate( $newEntry ); # add the new person object
 					if ($newResult->code) {
 						$log->error( "CMU::LDAP::getMemberDN addPersonObject failed: "

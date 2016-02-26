@@ -52,6 +52,7 @@ sub getInstance {
 		$_389->{_dnattribute}     = $CMU::CFG::_CFG{'389'}{'dnattribute'};
 		$_389->{_memberprefix}    = $CMU::CFG::_CFG{'389'}{'memberprefix'};
 		$_389->{_groupprefix}    = $CMU::CFG::_CFG{'389'}{'groupprefix'};
+		$_389->{_addPersonObjectIfMissing}	= $CMU::CFG::_CFG{'389'}{'addPersonObjectIfMissing'};
 		$_389->{_env}             = $CMU::CFG::_CFG{'ldap'}{'env'};
 		$_389->{_logtoerrorqueue} = $CMU::CFG::_CFG{'ldap'}{'logtoerrorqueue'};
 		$_389->{_cache}           = CMU::Cache->new;

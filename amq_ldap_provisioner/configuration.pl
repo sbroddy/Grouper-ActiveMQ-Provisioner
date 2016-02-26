@@ -46,10 +46,7 @@ our %_CFG = (
 		'groupprefix'       => 'cn=',
 		# options for creating DNs if they do not already exist
 		# most will not need the following
-		'addPersonObjectIfMissingAddSN' => 1,
-		'addPersonObjectIfMissingTemplate' => [
-				'objectClass' => [ 'top', 'account', 'eduPerson', 'eduMember' ],
-			 ],
+		'addPersonObjectIfMissing' => 1,
 	},
 	'activemq' => {
 		'primary'     => 'activemq-01.example.edu',
