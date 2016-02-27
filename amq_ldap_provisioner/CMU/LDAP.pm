@@ -40,6 +40,7 @@ my $_groupprefix;
 my $_logtoerrorqueue;
 my $_amqmesg;
 my $_ldap;
+my $_addPersonObjectIfMissing;
 
 use strict;
 use warnings;
