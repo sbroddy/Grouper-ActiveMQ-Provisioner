@@ -151,8 +151,11 @@ sub getMemberDn {
 
 			$log->debug( "self->_addPersonObjectIfMissing is " . $self->{_addPersonObjectIfMissing} );
 			if ( $result->count < 1 ) {
-				# AddPersonObjectIfMissingTemplate is an array suitable for use by Net::LDAP
-				# here we create context for ldap_add by setting DN accordingly, adding UID and SN=UID if addPersonObjectIfMissingAddSN is defined
+				# AddPersonObjectIfMissing is set in configuration.pl and determines if 
+				# a DN for a nonexistent entry is created in LDAP.  Later a template 
+				# of object classes should be added to the config so that this can be
+				# customized.
+				# here we create context for ldap_add by setting DN accordingly.
 				if ( $self->{_addPersonObjectIfMissing} == 1 ) {
 					my $newDN = $self->{_memberprefix}."$memberuid,".$self->{_peoplebase};
 					my $newEntry = Net::LDAP::Entry->new($newDN);
