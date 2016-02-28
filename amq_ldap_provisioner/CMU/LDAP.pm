@@ -150,7 +150,6 @@ sub getMemberDn {
 			);
 
 			$log->debug( "self->_addPersonObjectIfMissing is " . $self->{_addPersonObjectIfMissing} );
-			$log->debug( "_addPersonObjectIfMissing is " . $_addPersonObjectIfMissing );
 			if ( $result->count < 1 ) {
 				# AddPersonObjectIfMissingTemplate is an array suitable for use by Net::LDAP
 				# here we create context for ldap_add by setting DN accordingly, adding UID and SN=UID if addPersonObjectIfMissingAddSN is defined
