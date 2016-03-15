@@ -151,6 +151,7 @@ sub getMemberDn {
 
 			$log->debug( "self->_addPersonObjectIfMissing is " . $self->{_addPersonObjectIfMissing} );
 			if ( $result->count < 1 ) {
+				$log->debug( "LDAP search returned < 1 result and self->_addPersonObjectIfMissing is " . $self->{_addPersonObjectIfMissing} );
 				# AddPersonObjectIfMissing is set in configuration.pl and determines if 
 				# a DN for a nonexistent entry is created in LDAP.  Later a template 
 				# of object classes should be added to the config so that this can be
