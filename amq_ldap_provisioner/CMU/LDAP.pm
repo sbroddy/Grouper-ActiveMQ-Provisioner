@@ -195,11 +195,16 @@ sub getMemberDn {
 			}
 		};
 		if ($@) {
-			$log->error( "CMU::LDAP::getMemberDn returned with error name: "
+			if (ldap_error_name( $result->code ) eq "LDAP_SUCCESS" ) {
+				return;
+			}
+			else {
+				$log->error( "CMU::LDAP::getMemberDn returned with error name: "
 				  . ldap_error_name( $result->code )
 				  . ", and error description: "
 				  . ldap_error_desc( $result->code ) );
-			die();
+				die();
+			}
 		}
 	}
 	return $dn;
