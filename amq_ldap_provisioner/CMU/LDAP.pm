@@ -148,8 +148,6 @@ sub getMemberDn {
 				  . $self->{_personobjectclass} . ")",
 				\@attrs, $self->{_peoplebase}
 			);
-
-			$log->debug( "self->_addPersonObjectIfMissing is " . $self->{_addPersonObjectIfMissing} );
 			if ( $result->count < 1 ) {
 				$log->debug( "LDAP search returned < 1 result and self->_addPersonObjectIfMissing is " . $self->{_addPersonObjectIfMissing} );
 				# AddPersonObjectIfMissing is set in configuration.pl and determines if 
