@@ -40,7 +40,7 @@ our %_CFG = (
 		'syncou'     => 'ou=groups,dc=example,dc=edu',
 		'peoplebase' => 'dc=example,dc=edu',
 		'groupobjectclass'  => 'groupOfNames',
-		'personobjectclass' => 'persaon',
+		'personobjectclass' => 'person',
 		'dnattribute'       => 'entryDN',
 		'memberprefix'      => 'uid=',
 		'groupprefix'       => 'cn=',
